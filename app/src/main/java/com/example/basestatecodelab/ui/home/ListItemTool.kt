@@ -3,17 +3,9 @@ package com.example.basestatecodelab.ui.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -29,32 +21,10 @@ import com.example.basestatecodelab.ui.home.widgets.ItemTool
 
 @Composable
 fun ListItemTool(
-    modifier: Modifier,
-    tools: List<ToolModel>
+    modifier: Modifier = Modifier,
+    tools: List<ToolModel>,
+    navigationToDetail: (ToolModel) -> Unit
 ) {
-    /*LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
-        modifier = modifier.fillMaxWidth()
-            .height(188.dp)
-    ) {
-        items(tools) { tool ->
-            val event: @Composable () -> Unit = when (tool.status) {
-                ToolStatus.HOT -> {
-                    { ItemHotStatusTool() }
-                }
-
-                ToolStatus.SOON -> {
-                    { ItemSoonStatusTool() }
-                }
-
-                else -> {
-                    {}
-                }
-            }
-            ItemTool(modifier, tool, event = { event() }) { }
-        }
-    }*/
-
     Column(
         modifier = modifier
             .wrapContentHeight()
@@ -71,11 +41,11 @@ fun ListItemTool(
                     ToolStatus.SOON -> { { ItemSoonStatusTool() } }
                     else -> { {} }
                 }
-                ItemTool(modifier, tool, event = { event() }) { }
+                ItemTool(tool, event = { event() }) { navigationToDetail(it) }
             }
         }
 
-        Row(
+        /*Row(
             modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -85,9 +55,9 @@ fun ListItemTool(
                     ToolStatus.SOON -> { { ItemSoonStatusTool() } }
                     else -> { {} }
                 }
-                ItemTool(modifier, tool, event = { event() }) { }
+                ItemTool(tool, event = { event() }) { }
             }
-        }
+        }*/
     }
 }
 
@@ -97,7 +67,7 @@ private fun ListItemToolPreview() {
     Surface(
         color = MaterialTheme.colorScheme.surface
     ) {
-        ListItemTool(modifier = Modifier, data)
+        ListItemTool(modifier = Modifier, data, {})
     }
 
 }

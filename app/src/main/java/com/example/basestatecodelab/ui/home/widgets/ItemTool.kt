@@ -1,6 +1,7 @@
 package com.example.basestatecodelab.ui.home.widgets
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -34,21 +35,24 @@ import com.example.basestatecodelab.data.ToolStatus
 
 @Composable
 fun ItemTool(
-    modifier: Modifier,
     tool: ToolModel,
+    modifier: Modifier = Modifier,
     event: @Composable () -> Unit,
-    navigation: (ToolModel) -> Unit
+    navigationToDetail: (ToolModel) -> Unit
 ) {
     Column(
         modifier = modifier
             .padding(6.dp)
+            .clickable { navigationToDetail(tool) }
     ) {
         Box(
-            modifier = Modifier.wrapContentSize()
+            modifier = Modifier
+                .wrapContentSize()
                 .align(Alignment.CenterHorizontally)
         ){
             Surface(
-                modifier = Modifier.shadow(elevation = 4.dp, shape = RoundedCornerShape(10.dp))
+                modifier = Modifier
+                    .shadow(elevation = 4.dp, shape = RoundedCornerShape(10.dp))
                     .size(56.dp)
                     .background(color = Color.White, shape = RoundedCornerShape(10.dp))
 
@@ -61,7 +65,8 @@ fun ItemTool(
                 )
             }
             Box(
-                modifier = modifier.align(Alignment.TopEnd)
+                modifier = modifier
+                    .align(Alignment.TopEnd)
                     .align(Alignment.TopEnd)
                     .offset(x = 8.dp, y = (-6).dp)
             ){
@@ -72,8 +77,10 @@ fun ItemTool(
         Text(
             text = tool.title,
             fontSize = 10.sp,
+            color = Color.Black,
             fontWeight = FontWeight(400),
-            modifier = modifier.padding(top = 4.dp)
+            modifier = modifier
+                .padding(top = 4.dp)
                 .align(Alignment.CenterHorizontally)
         )
     }
@@ -124,4 +131,13 @@ fun ItemHotStatusTool(){
                 vertical = dimensionResource(id = R.dimen._4dp)
             )
     )
+}
+
+@Preview
+@Composable
+private fun Abbc() {
+    ItemTool(
+        tool = ToolModel("AI Enhance", 1, ToolStatus.HOT),
+        event = { ItemHotStatusTool() }
+    ) { }
 }

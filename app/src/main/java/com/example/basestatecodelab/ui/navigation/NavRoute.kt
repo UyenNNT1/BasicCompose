@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class NavRoutes(val route: String) {
     object CategoryDetailScreen : NavRoutes("category_screen")
-    object ToolDetailScreen : NavRoutes("tool_screen")
+    object ToolDetailScreen : NavRoutes("tool_screen/{jsonTool}")
 
 
     sealed class BottomScreen(val bRoute: String, val bTitle: String, val icon: ImageVector) :

@@ -10,14 +10,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.example.basestatecodelab.data.ToolModel
 import com.example.basestatecodelab.ui.account.AccountScreen
 import com.example.basestatecodelab.ui.face.FaceScreen
 import com.example.basestatecodelab.ui.home.HomeScreen
@@ -25,6 +24,7 @@ import com.example.basestatecodelab.ui.home.HomeViewModel
 import com.example.basestatecodelab.ui.home.widgets.BottomNavigation
 import com.example.basestatecodelab.ui.navigation.NavRoutes
 import com.example.basestatecodelab.ui.theme.BaseStateCodelabTheme
+import com.example.basestatecodelab.ui.tool.ToolDetailScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +49,7 @@ class MainActivity : ComponentActivity() {
                         addHomeScreen(navController, this, viewModel)
                         addFaceScreen(navController, this)
                         addAccountScreen(navController, this)
+                        addToolDetailScreen(navController, this)
                     }
                 }
             }
@@ -57,9 +58,16 @@ class MainActivity : ComponentActivity() {
 
 }
 
-fun addHomeScreen(navController: NavHostController, navGraphBuilder: NavGraphBuilder, viewModel: HomeViewModel) {
+fun addHomeScreen(
+    navController: NavHostController,
+    navGraphBuilder: NavGraphBuilder,
+    viewModel: HomeViewModel
+) {
     navGraphBuilder.composable(route = NavRoutes.BottomScreen.HomeScreen.bRoute) {
-        HomeScreen(viewModel = viewModel)
+        HomeScreen(viewModel = viewModel,
+            navigationToToolDetail = { tool ->
+                navController.navigate("${NavRoutes.ToolDetailScreen.route}/${tool.toGson()}")
+            })
     }
 }
 
@@ -73,6 +81,17 @@ private fun addAccountScreen(navController: NavHostController, navGraphBuilder: 
 private fun addFaceScreen(navController: NavHostController, navGraphBuilder: NavGraphBuilder) {
     navGraphBuilder.composable(route = NavRoutes.BottomScreen.AccountScreen.bRoute) {
         AccountScreen()
+    }
+}
+
+private fun addToolDetailScreen(
+    navController: NavHostController,
+    navGraphBuilder: NavGraphBuilder
+) {
+    navGraphBuilder.composable(route = "${NavRoutes.ToolDetailScreen.route}/{toolJson}") {
+        val toolJson = it.arguments?.getString("toolJson")
+        val tool = ToolModel.fromGson(toolJson ?: "")
+        ToolDetailScreen(tool, navController)
     }
 }
 

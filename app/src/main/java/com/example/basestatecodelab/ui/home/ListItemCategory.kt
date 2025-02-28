@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -30,9 +31,12 @@ import com.example.basestatecodelab.ui.home.widgets.ItemCategory
 
 @Composable
 fun ListDataItem(listItem: List<DataItem>) {
-    Column{
+    Column(
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+    ){
         listItem.forEach { dataItem ->
             ListItemCategory(modifier = Modifier, dataItem) { }
+            Spacer(Modifier.height(16.dp))
         }
     }
 }
@@ -72,10 +76,10 @@ fun ListItemCategory(
 @Preview
 @Composable
 private fun ListDataItemPreview() {
-    val homeViewModel : HomeViewModel = viewModel()
+//    val homeViewModel : HomeViewModel = viewModel()
     Surface(
         color = MaterialTheme.colorScheme.surface
     ) {
-        ListDataItem(homeViewModel.getDataItem())
+//        ListDataItem()
     }
 }

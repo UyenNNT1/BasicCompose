@@ -1,13 +1,13 @@
-package com.example.basestatecodelab.ui.face
+package com.example.basestatecodelab.ui.category
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun FaceScreen() {
+fun CategoryDetailScreen() {
     Text(
-        text = "Face Screen",
+        text = "Category Screen",
         color = Color.Black
     )
 }
