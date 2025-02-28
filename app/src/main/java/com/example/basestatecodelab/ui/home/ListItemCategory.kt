@@ -30,12 +30,12 @@ import com.example.basestatecodelab.data.DataItem
 import com.example.basestatecodelab.ui.home.widgets.ItemCategory
 
 @Composable
-fun ListDataItem(listItem: List<DataItem>) {
+fun ListDataItem(listItem: List<DataItem>, navigationToCategoryDetail: (DataItem) -> Unit) {
     Column(
         modifier = Modifier.padding(start = 16.dp, end = 16.dp)
-    ){
+    ) {
         listItem.forEach { dataItem ->
-            ListItemCategory(modifier = Modifier, dataItem) { }
+            ListItemCategory(modifier = Modifier, dataItem) { navigationToCategoryDetail(dataItem) }
             Spacer(Modifier.height(16.dp))
         }
     }
@@ -57,7 +57,7 @@ fun ListItemCategory(
             fontFamily = FontFamily.Serif
         )
         Spacer(modifier.height(16.dp))
-       Row(
+        Row(
             modifier = modifier
                 .fillMaxWidth()
                 .horizontalScroll(scrollState),

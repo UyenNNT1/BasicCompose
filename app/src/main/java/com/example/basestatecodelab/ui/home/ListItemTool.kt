@@ -45,7 +45,7 @@ fun ListItemTool(
             }
         }
 
-        /*Row(
+        Row(
             modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -57,7 +57,7 @@ fun ListItemTool(
                 }
                 ItemTool(tool, event = { event() }) { }
             }
-        }*/
+        }
     }
 }
 

@@ -11,13 +11,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.basestatecodelab.data.CategoryModel
+import com.example.basestatecodelab.data.DataItem
 import com.example.basestatecodelab.data.ToolModel
+import com.example.basestatecodelab.ui.home.widgets.StartButton
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel,
-    navigationToToolDetail: (ToolModel) -> Unit
+    navigationToToolDetail: (ToolModel) -> Unit,
 ) {
     val scrollSate = rememberScrollState()
     val banners by viewModel.banners.collectAsState(initial = emptyList())
@@ -32,7 +35,9 @@ fun HomeScreen(
         Spacer(modifier.height(32.dp))
         ListItemTool(tools = tools, navigationToDetail = { navigationToToolDetail(it) })
         Spacer(modifier.height(16.dp))
-        ListDataItem(listItem = dataItems)
+        StartButton()
+        Spacer(modifier.height(16.dp))
+        ListDataItem(listItem = dataItems, navigationToCategoryDetail = {})
     }
 }
 

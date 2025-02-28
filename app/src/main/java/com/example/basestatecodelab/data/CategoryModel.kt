@@ -19,4 +19,14 @@ data class CategoryModel(
 data class DataItem(
     val title: String,
     val categories: List<CategoryModel>
-)
+){
+    fun toGson(): String {
+        return Gson().toJson(this)
+    }
+
+    companion object {
+        fun fromGson(json: String): DataItem {
+            return Gson().fromJson(json, DataItem::class.java)
+        }
+    }
+}
