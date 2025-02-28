@@ -11,7 +11,9 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun StartButton(){
-    Card {
+    Card(
+
+    ) {
         Row {
             Icon(
                 imageVector = Icons.Default.AddCircle,
